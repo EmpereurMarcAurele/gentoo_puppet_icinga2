@@ -41,7 +41,7 @@ file_line { '; date.timezone =':
 file { '/etc/icinga2/conf.d/hosts.conf':
   ensure => present,
 }->
-file_line { '/*vars.http_vhosts':
+file_line { '//vars.http_vhosts':
   path => '/etc/icinga2/conf.d/hosts.conf',
   line => 'vars.http_vhosts["Icinga Web 2"] = {http_uri = "/icingaweb2"}',
 }
@@ -57,7 +57,8 @@ file_line { '/*vars.http_vhosts':
 	mysql::db {'icingaweb2':
 	user => 'icingaweb2',
 	password => 'changeme',
-1	host => 'localhost',
+
+	host => 'localhost',
 	grant => ['SELECT','INSERT','UPDATE','DELETE','DROP','CREATE VIEW','INDEX','EXECUTE'],
 	sql => '/usr/share/icingaweb2/etc/schema/mysql.schema.sql',}
 
