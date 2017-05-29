@@ -9,11 +9,11 @@ if [ "$#" -ne 4 ]; then
 	exit 1
 fi
 
-pki_dir="/etc/icinga2/pki"			#- /etc/icinga2/pki in the default installation
-fqdn=$1						#- fully host+domain name of the client.
-icinga2_master=$2 				#- resolvable fqdn of the master
-icinga2_master_port=$3 				#- the port the master is connectable on.
-ticket=$4					#- generated on the master via 'icinga2 pki ticket --cn $fqdn'
+$pki_dir="/etc/icinga2/pki"			#- /etc/icinga2/pki in the default installation
+$fqdn=$1					#- fully host+domain name of the client.
+$icinga2_master=$2 				#- resolvable fqdn of the master
+$icinga2_master_port=$3 			#- the port the master is connectable on.
+$ticket=$4					#- generated on the master via 'icinga2 pki ticket --cn $fqdn'
 
 mkdir -v --mode=700 $pki_dir
 chown -v icinga:icinga $pki_dir
