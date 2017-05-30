@@ -1,9 +1,9 @@
 ### manifests/init.pp
 node default {
-	include	gamp
-	include	install_iiw2
-	include	install_set_mysql
-	include	set_iiw2
+	include gamp
+	include install_iiw2
+	include install_set_mysql
+	include set_iiw2
 }
 
 ### gamp/manifests/init.pp
@@ -55,19 +55,19 @@ class	install_set_mysql {
         service { 'mysql':
                         ensure => running,}
 
-        mysql::db {'icinga2':
-        user => 'icinga2',
-        password => 'changeme',
-        host => 'localhost',
-        grant => ['SELECT','INSERT','UPDATE','DELETE','DROP','CREATE VIEW','INDEX','EXECUTE'],
-        sql => '/usr/share/icinga2-ido-mysql/schema/mysql.sql',}
+#        mysql::db {'icinga2':
+#        user => 'icinga2',
+#        password => 'changeme',
+#        host => 'localhost',
+#        grant => ['SELECT','INSERT','UPDATE','DELETE','DROP','CREATE VIEW','INDEX','EXECUTE'],
+#        sql => '/usr/share/icinga2-ido-mysql/schema/mysql.sql',}
 
-        mysql::db {'icingaweb2':
-        user => 'icingaweb2',
-        password => 'changeme',
-        host => 'localhost',
-        grant => ['SELECT','INSERT','UPDATE','DELETE','DROP','CREATE VIEW','INDEX','EXECUTE'],
-        sql => '/usr/share/icingaweb2/etc/schema/mysql.schema.sql',}
+#        mysql::db {'icingaweb2':
+#        user => 'icingaweb2',
+#        password => 'changeme',
+#        host => 'localhost',
+#        grant => ['SELECT','INSERT','UPDATE','DELETE','DROP','CREATE VIEW','INDEX','EXECUTE'],
+#        sql => '/usr/share/icingaweb2/etc/schema/mysql.schema.sql',}
 }
 
 class	set_iiw2 {
@@ -82,12 +82,24 @@ class	set_iiw2 {
 		command => 'icinga2 feature enable ido-mysql livestatus perfdata statusdata command',
 		path => ['/usr/bin', '/bin'],}
 
-	echo library "db_ido_mysql" > /etc/icinga2/features-available/ido-mysql.conf
-	echo object IdoMysqlConnection "ido-mysql" { >> /etc/icinga2/features-available/ido-mysql.conf
-	echo user = "icinga2" >> /etc/icinga2/features-available/ido-mysql.conf
-	echo password = "changeme" >> /etc/icinga2/features-available/ido-mysql.conf
-	echo host = "localhost" >> /etc/icinga2/features-available/ido-mysql.conf
-	echo database = "icinga2"} >> /etc/icinga2/features-available/ido-mysql.conf
+	exec {'echo1':
+		command => 'echo library "db_ido_mysql" > /etc/icinga2/features-available/ido-mysql.conf',
+		path => ['/usr/bin', '/bin'],}
+	exec {'echo2':
+		command => 'echo object IdoMysqlConnection "ido-mysql" { >> /etc/icinga2/features-available/ido-mysql.conf',
+		path =>	['/usr/bin', '/bin'],}
+	exec {'echo3':
+		command => 'echo user = "icinga2" >> /etc/icinga2/features-available/ido-mysql.conf',
+		path =>	['/usr/bin', '/bin'],}
+	exec {'echo4':
+		command => 'echo password = "changeme" >> /etc/icinga2/features-available/ido-mysql.conf',
+		path =>	['/usr/bin', '/bin'],}
+	exec {'echo5':
+		command => 'echo host = "localhost" >> /etc/icinga2/features-available/ido-mysql.conf',
+		path =>	['/usr/bin', '/bin'],}
+	exec {'echo6':
+		command => 'echo database = "icinga2"} >> /etc/icinga2/features-available/ido-mysql.conf',
+		path =>	['/usr/bin', '/bin'],}
 
 	exec {'icinga2 restart':
 		command => '/etc/init.d/icinga2 restart',
