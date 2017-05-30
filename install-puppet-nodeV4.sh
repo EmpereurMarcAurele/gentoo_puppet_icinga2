@@ -43,7 +43,7 @@ app-eselect/eselect-php    fpm
 mail-mta/postfix    sasl
 net-analyzer/icinga2 libressl -minimal mysql vim-syntax plugins -classicui console lto mail nano-syntax apache2
 >=media-libs/gd-2.2.4 fontconfig
-www-apps/icingaweb2-2.4.1 apache2 -ldap mysql -nginx -postgres
+www-apps/icingaweb2 apache2 -ldap mysql -nginx -postgres
 =dev-ruby/facter-3.6.1
 # required by www-apps/icingaweb2-2.4.1::gentoo[apache2]
 # required by www-apps/icingaweb2 (argument)

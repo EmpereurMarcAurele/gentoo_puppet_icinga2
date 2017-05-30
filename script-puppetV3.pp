@@ -87,8 +87,9 @@ file_line { '//vars.http_vhosts':
 ### localhost/icingaweb2/setup -> token:
 #mkdir -m 2770 /etc/icingaweb2;
 #chgrp icingaweb2 /etc/icingaweb2;
+#chmod 777 /etc/icingaweb2;
 #head -c 12 /dev/urandom | base64 | tee /etc/icingaweb2/setup.token; <-- token saffiche
-#chmod 0660 /etc/icingaweb2/setup.token;
+#chmod 777 /etc/icingaweb2/setup.token;
 ###
 	file { '/var/www/localhost/htdocs/info.php':
 						ensure => file,
