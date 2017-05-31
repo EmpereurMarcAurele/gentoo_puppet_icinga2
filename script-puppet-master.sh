@@ -8,7 +8,6 @@ node default {
 
 ### gamp/manifests/init.pp
 class	gamp {
-
 	package {'apache':}
 	service { 'apache2':
 		ensure => running,}
@@ -75,30 +74,31 @@ class	set_iiw2 {
 	file { '/etc/icinga2/conf.d/hosts.conf':
 		ensure => present,
 	}->
-	file_line { '//vars.http_vhosts':
+	file_line { '  //vars.http_vhosts["Icinga Web 2"] = {':
 		path => '/etc/icinga2/conf.d/hosts.conf',
 		line => 'vars.http_vhosts["Icinga Web 2"] = {http_uri = "/icingaweb2"}',}
+
 	exec {'icinga2 feature':
 		command => 'icinga2 feature enable ido-mysql livestatus perfdata statusdata command',
-		path => ['/usr/bin', '/bin'],}
+		path => ['/usr/lib64/icinga2/sbin/'],}
 
 	exec {'echo1':
-		command => 'echo library "db_ido_mysql" > /etc/icinga2/features-available/ido-mysql.conf',
+		command => 'echo "library "\"db_ido_mysql"\"" > /etc/icinga2/features-available/ido-mysql.conf',
 		path => ['/usr/bin', '/bin'],}
 	exec {'echo2':
-		command => 'echo object IdoMysqlConnection "ido-mysql" { >> /etc/icinga2/features-available/ido-mysql.conf',
+		command => 'echo "object IdoMysqlConnection "\"ido-mysql"\"" { >> /etc/icinga2/features-available/ido-mysql.conf',
 		path =>	['/usr/bin', '/bin'],}
 	exec {'echo3':
-		command => 'echo user = "icinga2" >> /etc/icinga2/features-available/ido-mysql.conf',
+		command => 'echo "user = "\"icinga2"\"" >> /etc/icinga2/features-available/ido-mysql.conf',
 		path =>	['/usr/bin', '/bin'],}
 	exec {'echo4':
-		command => 'echo password = "changeme" >> /etc/icinga2/features-available/ido-mysql.conf',
+		command => 'echo "password = "\"changeme"\"" >> /etc/icinga2/features-available/ido-mysql.conf',
 		path =>	['/usr/bin', '/bin'],}
 	exec {'echo5':
-		command => 'echo host = "localhost" >> /etc/icinga2/features-available/ido-mysql.conf',
+		command => 'echo "host = "\"localhost"\"" >> /etc/icinga2/features-available/ido-mysql.conf',
 		path =>	['/usr/bin', '/bin'],}
 	exec {'echo6':
-		command => 'echo database = "icinga2"} >> /etc/icinga2/features-available/ido-mysql.conf',
+		command => 'echo "database = "\"icinga2"\""} >> /etc/icinga2/features-available/ido-mysql.conf',
 		path =>	['/usr/bin', '/bin'],}
 
 	exec {'icinga2 restart':
