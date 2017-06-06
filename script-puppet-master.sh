@@ -8,6 +8,7 @@ node default {
 
 ### gamp/manifests/init.pp
 class	gamp {
+
 	package {'apache':}
 	service { 'apache2':
 		ensure => running,}
@@ -70,18 +71,14 @@ class	install_set_mysql {
 }
 
 class	set_iiw2 {
-
-	file { '/etc/icinga2/conf.d/hosts.conf':
-		ensure => present,
-	}->
-	file_line { '  //vars.http_vhosts["Icinga Web 2"] = {':
-		path => '/etc/icinga2/conf.d/hosts.conf',
-		line => 'vars.http_vhosts["Icinga Web 2"] = {http_uri = "/icingaweb2"}',}
-
-	exec {'icinga2 feature':
-		command => 'icinga2 feature enable ido-mysql livestatus perfdata statusdata command',
-		path => ['/usr/lib64/icinga2/sbin/'],}
-
+##
+	exec {'sed Icinga2conf1':
+		command => 'sed "s_//_ _g" /etc/icinga2/conf.d/hosts.conf > /etc/icinga2/conf.d/hosts.conf.icingaweb2',
+		path => ['/usr/bin', '/bin'],}
+	exec {'sed Icinga2conf2':
+		command => 'mv /etc/icinga2/conf.d/hosts.conf.icingaweb2 /etc/icinga2/conf.d/hosts.conf',
+		path => ['/usr/bin', '/bin'],}
+##
 	exec {'echo1':
 		command => 'echo "library "\"db_ido_mysql"\"" > /etc/icinga2/features-available/ido-mysql.conf',
 		path => ['/usr/bin', '/bin'],}
@@ -100,7 +97,7 @@ class	set_iiw2 {
 	exec {'echo6':
 		command => 'echo "database = "\"icinga2"\""} >> /etc/icinga2/features-available/ido-mysql.conf',
 		path =>	['/usr/bin', '/bin'],}
-
+##
 	exec {'icinga2 restart':
 		command => '/etc/init.d/icinga2 restart',
 		path => ['/usr/bin', '/bin'],}
