@@ -142,7 +142,9 @@ echo "# required by dev-php/PEAR-PEAR_PackageFileManager-1.7.2-r1::gentoo
 
 ###Install de puppet.
 emerge --sync
-emerge =dev-ruby/facter-3.6.1
+#emerge =dev-ruby/facter-3.6.1
+#For some unkown reason facter 3.6.2 have conflict. 3.6.1 solve the problem if reboot, but on docker facter-3.6.3 works fine
+emerge facter
 emerge puppet
 rc-update add sshd default
 
