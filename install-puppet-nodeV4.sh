@@ -154,7 +154,7 @@ rc-update add sshd default
 /bin/mkdir /opt/puppetlabs/puppet/modules/
 #Creation du lien symbolique
 cd /etc/puppetlabs/code/environments/production/
-ln -s /opt/puppetlabs/puppet/modules /etc/puppetlabs/code/environments/production/modules
+/bin/ln -s /opt/puppetlabs/puppet/modules /etc/puppetlabs/code/environments/production/modules
 
 ###Creation du fichier de conf
 cd /etc/puppetlabs/puppet/
