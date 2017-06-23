@@ -147,10 +147,11 @@ emerge puppet
 rc-update add sshd default
 
 ###Creation des dossier et ss dossier necessaire.
-mkdir /etc/puppetlabs/code/environments/
-mkdir /etc/puppetlabs/code/environments/production/
-mkdir /etc/puppetlabs/code/environments/production/manifests/
-mkdir /opt/puppetlabs/puppet/modules/
+/bin/mkdir /etc/puppetlabs/code
+/bin/mkdir /etc/puppetlabs/code/environments/
+/bin/mkdir /etc/puppetlabs/code/environments/production/
+/bin/mkdir /etc/puppetlabs/code/environments/production/manifests/
+/bin/mkdir /opt/puppetlabs/puppet/modules/
 #Creation du lien symbolique
 cd /etc/puppetlabs/code/environments/production/
 ln -s /opt/puppetlabs/puppet/modules /etc/puppetlabs/code/environments/production/modules
